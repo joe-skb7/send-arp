@@ -249,14 +249,15 @@ int arp_request(int fd, const char *if_name, const char *target_ip)
  * Wait for ARP reply packet and process it.
  *
  * fd: file descriptor for open socket
+ * data: pointer to allocated structure; will contain reply result
+ *
+ * Return: 0 on success, -1 on error
  */
-int arp_reply(int fd)
+int arp_reply(int fd, struct arp_reply_data *data)
 {
 	struct ether_arp reply;
 
 	for (;;) {
-		char reply_ip_str[INET_ADDRSTRLEN];
-		char reply_mac_str[ETHER_ADDRSTRLEN];
 		int ret;
 
 		ret = recv(fd, &reply, sizeof(reply), 0);
@@ -276,13 +277,10 @@ int arp_reply(int fd)
 			continue;
 		}
 
-		inet_ntop(AF_INET, reply.arp_spa, reply_ip_str,
+		inet_ntop(AF_INET, reply.arp_spa, data->reply_ip,
 				INET_ADDRSTRLEN);
 		ether_ntoa_r((struct ether_addr *)reply.arp_sha,
-				reply_mac_str);
-
-		printf("Reply ip:  %s\n", reply_ip_str);
-		printf("Reply mac: %s\n", reply_mac_str);
+				data->reply_mac);
 
 		break;
 	}

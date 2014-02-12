@@ -68,6 +68,7 @@ static void sigint_handler(int signum)
 int main(int argc, char *argv[])
 {
 	int ret;
+	struct arp_reply_data reply_data;
 
 	ret = parse_params(argc, argv, &params);
 	if (ret == -1) {
@@ -93,11 +94,14 @@ int main(int argc, char *argv[])
 		goto close_fd;
 	}
 
-	ret = arp_reply(sfd);
+	ret = arp_reply(sfd, &reply_data);
 	if (ret == -1) {
 		ret = EXIT_FAILURE;
 		goto close_fd;
 	}
+
+	printf("Reply ip:  %s\n", reply_data.reply_ip);
+	printf("Reply mac: %s\n", reply_data.reply_mac);
 
 close_fd:
 	ret = arp_socket_close(sfd);
