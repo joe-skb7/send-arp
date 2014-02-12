@@ -1,4 +1,4 @@
-CFLAGS = -Wall -pedantic -O2 -s
+CFLAGS = -Wall -pedantic -O2
 INCLUDES = -Iinclude
 SOURCES = src/main.c src/arp.c
 BIN = send-arp
