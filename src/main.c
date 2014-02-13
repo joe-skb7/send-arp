@@ -8,7 +8,8 @@
 #include <errno.h>
 #include <unistd.h>
 #include <signal.h>
-#include "arp.h"
+
+#include <arp.h>
 
 struct params {
 	char *iface_name;

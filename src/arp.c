@@ -8,7 +8,8 @@
 #include <net/if.h>
 #include <netpacket/packet.h>
 #include <netinet/ether.h>
-#include "arp.h"
+
+#include <arp.h>
 
 /* Length of MAC address string */
 #define ETHER_ADDRSTRLEN (ETH_ALEN * 2 + (ETH_ALEN - 1) + 1)
