@@ -8,7 +8,6 @@
 #include <network.h>
 
 /*
- *
  * Get interface index by interface name.
  *
  * if_name: interface name
